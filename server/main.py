@@ -1,12 +1,13 @@
 import os
 import sqlite3
 from flask import Flask, request
-from count_cars import get_cars
 
+from count_cars import get_cars
+import config
 
 app = Flask(__name__)
 
-conn = sqlite3.connect('db.sqlite3')
+conn = sqlite3.connect(config.db_name)
 cursor = conn.cursor()
 
 
@@ -21,10 +22,10 @@ def set(id):
 	if (request.method != 'POST'):
 		return 'only POST method'
 	
-	request.files['parking'].save('img/parking.jpg')
-	request.files['background'].save('img/background.jpg')
+	request.files['parking'].save(config.p_img_dir)
+	request.files['background'].save(config.b_img_dir)
 	
-	cnt = len(get_cars('img/parking.jpg', 'img/background.jpg'))
+	cnt = len(get_cars(config.p_img_dir, config.b_img_dir))
 
 	cursor.execute('UPDATE `parking` SET `available`=(`all`-' + str(cnt) + ')  WHERE `id`=' + str(id))
 	conn.commit()

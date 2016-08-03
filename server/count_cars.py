@@ -33,6 +33,8 @@ def get_cars(im1, im2):
 def main():
 	import sys
 	
+	img1 = cv2.imread(sys.argv[1])
+
 	for c in get_cars(sys.argv[1], sys.argv[2]):
 		cv2.drawContours(img1, [c], -1, (0, 255, 0), 2)
 
