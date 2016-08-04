@@ -1,17 +1,36 @@
 import sys
 import requests
+import threading
 
 import camera
 import config
 
-def main():
+
+def set_interval(func, sec):
+	def func_wrapper():
+		set_interval(func, sec)
+		func()
+	t = threading.Timer(sec, func_wrapper)
+	t.start()
+	return t
+
+
+def loop():
+	camera.loop()
 	cam_id = sys.argv[1]
-	imgs = camera.get_image(cam_id)
+	imgs = camera.get_image()
 	data = {
 		'parking' : imgs[0],
 		'background' : imgs[1]
 	}
 	print requests.post(config.url + '/api/set/' + cam_id, files = data).text
+
+
+
+def main():
+	camera.setup()
+	set_interval(loop, 2)
+
 
 if __name__ == '__main__':
 	main()

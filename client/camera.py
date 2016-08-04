@@ -1,12 +1,26 @@
-<<<<<<< HEAD
 import cv
-capture = cv.CaptureFromCAM(0)
-img = cv.QueryFrame(capture)
-cv.SaveImage("img/parking.jpg", img)
 
-def get_image(cam_id):
+
+capture = cv.CaptureFromCAM(0)
+
+
+def get_image():
 	return (open('img/parkng.jpg', 'rb'), open('img/background.jpg', 'rb'))
-=======
-def get_image(cam_id):
-	return (open('img/parking.jpg', 'rb'), open('img/background.jpg', 'rb'))
->>>>>>> 35284c370f7c53f80b2696afa4634a30b0f8585b
+
+
+def setup():
+	img = cv.QueryFrame(capture)
+	cv.SaveImage("img/background.jpg", img)
+
+
+def loop():
+	img = cv.QueryFrame(capture)
+	cv.SaveImage("img/parkng.jpg", img)
+
+
+def main():
+	setup()
+	loop()
+
+if __name__ == '__main__':
+	main()
