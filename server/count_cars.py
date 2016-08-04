@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import imutils
+# import imutils
 
 def imshow(img):
 	cv2.imshow('img', img)
@@ -26,7 +26,7 @@ def get_cars(im1, im2):
 	sure_bg = cv2.dilate(opening, kernel, iterations=3)
 
 	cnts = cv2.findContours(sure_bg.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-	cnts = cnts[0] if imutils.is_cv2() else cnts[1]
+	cnts = cnts[0] #if imutils.is_cv2() else cnts[1]
 
 	return filter(lambda c: cv2.contourArea(c) > 3000, cnts)
 
