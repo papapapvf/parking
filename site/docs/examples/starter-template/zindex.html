@@ -95,17 +95,12 @@
 	var coord2 = [];
         $.get("/parkingmos.json", function (data) {
 	  json = data;
-	  //console.log('asd');
-	  
 	  json = JSON.parse(json);
-	  //console.log(json[1]);
-	  var s = "CarCapacity: ";
 	  for (i = 0; i < json.length; i++) {
-	      PlaceMarks.push(s + json[i].Cells.CarCapacity);
+	      PlaceMarks.push(json[i].Cells.ParkingName + "<br>" + "Время работы: " + json[i].Cells.WorkingHours + "<br>" + "Район: " + json[i].Cells.District + "<br>" + "Адрес: " + json[i].Cells.Address + "<br>" + "Цена: " + json[i].Cells.Price + " ₽<br>" + "Всего мест: " + json[i].Cells.CarCapacity);
 	      coord1.push(parseFloat(json[i].Cells.geoData.coordinates[0][0][0]));
 	      coord2.push(parseFloat(json[i].Cells.geoData.coordinates[0][0][1]));
 	  }
-	  //console.log(coord2[1]);
 	});
 	ymaps.ready(init);
 	var myMap;
@@ -116,7 +111,7 @@
 	    });
 	    myPlacemarks = []
 	    for (i = 0; i < PlaceMarks.length; i++) {
-		myPlacemarks.push(new ymaps.Placemark([coord2[i], coord1[i]], { hintContent: 'P', balloonContent: PlaceMarks[i] }));
+		myPlacemarks.push(new ymaps.Placemark([coord2[i], coord1[i]], { hintContent: 'Свободных мест: ', balloonContent: PlaceMarks[i] }));
 	    }
 	    clusterer = new ymaps.Clusterer({});
 	    clusterer.add(myPlacemarks);
