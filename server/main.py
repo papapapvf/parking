@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from flask import Flask, request
+from flask import Flask, request, url_for, render_template, send_from_directory
 
 from count_cars import get_cars
 import config
@@ -13,7 +13,11 @@ cursor = conn.cursor()
 
 @app.route('/')
 def index():
-	return 'Flask server is working!'
+	# return send_from_directory(app.static_folder, 'index.html')
+	# return app.send_static_file(url_for('static', filename = 'index.html'))
+	# return app.send_static_file('index.html')
+	return render_template('index.html')
+	# return 'Flask server is working!'
 
 
 @app.route('/api/set/<int:id>', methods=['GET', 'POST'])
@@ -48,7 +52,8 @@ def get(id):
 
 
 def main():
-	app.run(host='0.0.0.0', port=80)
+	# app.run(host='0.0.0.0', port=80)
+	app.run()
 
 
 if __name__ == '__main__':

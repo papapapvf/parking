@@ -16,20 +16,23 @@ def set_interval(func, sec):
 
 
 def loop():
-	camera.loop()
-	cam_id = sys.argv[1]
-	imgs = camera.get_image()
-	data = {
-		'parking' : imgs[0],
-		'background' : imgs[1]
-	}
-	print requests.post(config.url + '/api/set/' + cam_id, files = data).text
-
+	try:
+		camera.loop()
+		cam_id = sys.argv[1]
+		imgs = camera.get_image()
+		data = {
+			'parking' : imgs[0],
+			'background' : imgs[1]
+		}
+		print requests.post(config.url + '/api/set/' + cam_id, files = data).text
+	except:
+		print 'error'
 
 
 def main():
 	camera.setup()
-	set_interval(loop, 2)
+	set_interval(loop, 1)
+	# loop()
 
 
 if __name__ == '__main__':

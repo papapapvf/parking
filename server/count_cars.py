@@ -9,7 +9,16 @@ def imshow(img):
 def get_cars(im1, im2):
 
 	img1 = cv2.imread(im1)
-	img2 = cv2.imread(im2)
+	img2 =	 cv2.imread(im2)
+
+	# equ = cv2.equalizeHist(img1)
+	# img1 = np.hstack((img1, equ))
+
+	# clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+    # cl1 = clahe.apply(img1)
+
+	# imshow(cl1)
+	# imshow(img2)
 
 	img1 = cv2.bilateralFilter(img1, 10, 75, 75)
 	img2 = cv2.bilateralFilter(img2, 10, 75, 75)
