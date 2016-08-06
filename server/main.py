@@ -13,12 +13,15 @@ cursor = conn.cursor()
 
 @app.route('/')
 def index():
-	# return send_from_directory(app.static_folder, 'index.html')
-	# return app.send_static_file(url_for('static', filename = 'index.html'))
-	# return app.send_static_file('index.html')
 	return render_template('index.html')
-	# return 'Flask server is working!'
 
+@app.route('/mobileapp')
+def mobileapp():
+	return render_template('mobileapp.html')
+
+@app.route('/about')
+def about():
+	return render_template('about.html')	
 
 @app.route('/api/set/<int:id>', methods=['GET', 'POST'])
 def set(id):
