@@ -44,7 +44,6 @@ def get_all():
 
 	cursor.execute('SELECT `available` FROM `parking`')
 	return ' '.join([str(x[0]) for x in cursor.fetchall()])
-	# return str(cursor.fetchall())
 
 
 @app.route('/api/get/<int:id>')
